@@ -1,0 +1,42 @@
+{
+  "name": "@techteamer/docker-manager-library",
+  "version": "1.0.0",
+  "description": "A FaceKom Docker Manager Library",
+  "main": "index.js",
+  "exports": {
+    ".": {
+      "import": "./build/docker-manager-library.mjs",
+      "require": "./build/docker-manager-lbirary.cjs",
+      "types": "./build/docker-manager-library.d.ts",
+      "default": "./build/docker-manager-library.mjs"
+    }
+  },
+  "scripts": {
+    "build": "tsup",
+    "test": "vitest --run",
+    "lint": "biome lint",
+    "format": "biome format --write",
+    "check": "biome check  --write"
+  },
+  "files": [
+    "build"
+  ],
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@biomejs/biome": "1.8.3",
+    "@types/dockerode": "^3.3.31",
+    "@types/js-yaml": "^4.0.9",
+    "@types/node": "^22.0.0",
+    "tsup": "^8.2.3",
+    "typescript": "^5.5.4",
+    "vitest": "^2.0.4"
+  },
+  "dependencies": {
+    "@types/dockerode-compose": "^1.4.1",
+    "dockerode": "^4.0.2",
+    "dockerode-compose": "^1.4.0",
+    "js-yaml": "^4.1.0"
+  }
+}
