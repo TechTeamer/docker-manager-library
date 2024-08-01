@@ -58,7 +58,7 @@ await dockerManager.containerStop('container-id');
 ### Docker Compose
 
 > [!NOTE]
-> In the compose file the placeholder syntax is: `{{DB_PASSWORD}}`
+> In the compose file the placeholder syntax is: `{{PLACEHOLDER}}`
 
 ```ts
 import { DockerManager } from '@techteamer/docker-manager-library';
@@ -100,7 +100,26 @@ await dockerManager.composeUpdate('./docker-compose.yml', {
 
 ### Options
 
-The constructor of `DockerManager` has many options that can be found [here](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/8adf18d46a274fac0180b8965502969266d484cd/types/dockerode/index.d.ts#L1240).
+The constructor of `DockerManager` has the following options: 
+
+```ts
+type DockerOptions = {
+  socketPath?: string | undefined
+  host?: string | undefined
+  port?: number | string | undefined
+  username?: string | undefined
+  headers?: { [name: string]: string }
+  ca?: string | string[] | Buffer | Buffer[] | undefined
+  cert?: string | string[] | Buffer | Buffer[] | undefined
+  key?: string | string[] | Buffer | Buffer[] | KeyObject[] | undefined
+  protocol?: 'https' | 'http' | 'ssh' | undefined
+  timeout?: number | undefined
+  version?: string | undefined
+  sshAuthAgent?: string | undefined
+  sshOptions?: ConnectConfig | undefined
+  Promise?: typeof Promise | undefined
+}
+```
 
 Example:
 
