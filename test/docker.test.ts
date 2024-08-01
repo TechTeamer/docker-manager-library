@@ -56,7 +56,7 @@ describe('DockerManager', () => {
     await dockerManager.containerStart(container.id)
     const status = await dockerManager.getContainerStatus(container.id)
 
-    expect(status.Running).toBeTruthy()
+    expect(status.Running).toBe(true)
   })
 
   it('should list all containers', async () => {
