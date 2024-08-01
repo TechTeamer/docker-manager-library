@@ -14,7 +14,7 @@ import DockerodeCompose from 'dockerode-compose'
 export class DockerManager {
   private docker: Docker
 
-  constructor(dockerOptions: DockerOptions) {
+  constructor(dockerOptions?: DockerOptions) {
     this.docker = new Docker(dockerOptions)
   }
 

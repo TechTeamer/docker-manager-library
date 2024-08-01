@@ -27,6 +27,7 @@
   "devDependencies": {
     "@biomejs/biome": "1.8.3",
     "@types/dockerode": "^3.3.31",
+    "@types/dockerode-compose": "^1.4.1",
     "@types/js-yaml": "^4.0.9",
     "@types/node": "^22.0.0",
     "tsup": "^8.2.3",
@@ -34,7 +35,6 @@
     "vitest": "^2.0.4"
   },
   "dependencies": {
-    "@types/dockerode-compose": "^1.4.1",
     "dockerode": "^4.0.2",
     "dockerode-compose": "^1.4.0",
     "js-yaml": "^4.1.0"
