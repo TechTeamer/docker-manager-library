@@ -147,10 +147,14 @@ describe('DockerManager', () => {
   })
 
   it('should up a docker-compose', async () => {
-    await dockerManager.composeUp(OUT_COMPOSE_PATH_PLACEHOLDER, 'very-nginx')
+    await dockerManager.composeUp(
+      OUT_COMPOSE_PATH_PLACEHOLDER,
+      TEST_CONTAINER.Name,
+    )
 
-    const composeContainers =
-      await dockerManager.composeGetContainers('very-nginx')
+    const composeContainers = await dockerManager.composeGetContainers(
+      TEST_CONTAINER.Name,
+    )
 
     expect(
       composeContainers.every((container) => container.State === 'running'),
@@ -158,10 +162,14 @@ describe('DockerManager', () => {
   })
 
   it('should down a docker-compose', async () => {
-    await dockerManager.composeDown(OUT_COMPOSE_PATH_PLACEHOLDER, 'very-nginx')
+    await dockerManager.composeDown(
+      OUT_COMPOSE_PATH_PLACEHOLDER,
+      TEST_CONTAINER.Name,
+    )
 
-    const composeContainers =
-      await dockerManager.composeGetContainers('very-nginx')
+    const composeContainers = await dockerManager.composeGetContainers(
+      TEST_CONTAINER.Name,
+    )
 
     expect(composeContainers).toHaveLength(0)
   })

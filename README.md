@@ -10,7 +10,7 @@ Install the dependencies
 pnpm i
 ```
 
-To run it tests
+To run tests
 
 ```
 pnpm test
