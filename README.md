@@ -98,6 +98,16 @@ await dockerManager.composeUpdate('./docker-compose.yml', {
 });
 ```
 
+### Options
+
+The constructor of DockerManager has many options that can be found [here](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/8adf18d46a274fac0180b8965502969266d484cd/types/dockerode/index.d.ts#L1240).
+
+Example:
+
+```ts
+const dockerManager = new DockerManager({ socketPath: '/var/run/docker.sock' })
+```
+
 ## Development
 
 Install the dependencies
