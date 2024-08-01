@@ -57,8 +57,7 @@ await dockerManager.containerStop('container-id');
 
 ### Docker Compose
 
-> **Note**
->
+> [!NOTE]
 > In the compose file the placeholder syntax is: {{DB_PASSWORD}}
 
 ```ts
