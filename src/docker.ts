@@ -24,6 +24,17 @@ export class DockerManager {
     return container
   }
 
+  async getContainers(all = false, status: string[] = []) {
+    const containers = await this.docker.listContainers({
+      all,
+      filters: {
+        status,
+      },
+    })
+
+    return containers
+  }
+
   async getContainerStatus(query: string) {
     const container = this.getContainer(query)
     const data = await container.inspect()
@@ -33,20 +44,30 @@ export class DockerManager {
 
   async containerStart(query: string) {
     const container = this.getContainer(query)
-    await container.start()
-  }
-
-  async containerStop(query: string) {
-    const container = this.getContainer(query)
-    await container.stop()
-  }
-
-  async containerCreate(options: ContainerCreateOptions) {
-    const container = await this.docker.createContainer(options)
 
     await container.start()
 
     return container
+  }
+
+  async containerStop(query: string) {
+    const container = this.getContainer(query)
+
+    await container.stop()
+
+    return container
+  }
+
+  async containerCreate(options: ContainerCreateOptions & { Name: string }) {
+    try {
+      const container = await this.docker.createContainer(options)
+
+      await container.start()
+
+      return container
+    } catch (error) {
+      return this.getContainer(options.Name)
+    }
   }
 
   async composeCreate(
@@ -73,6 +94,17 @@ export class DockerManager {
     await writeCompose(composePath, composeFileContent)
   }
 
+  async composeGetContainers(projectName: string) {
+    const containers = await this.docker.listContainers({
+      all: true,
+      filters: {
+        label: [`com.docker.compose.project=${projectName}`],
+      },
+    })
+
+    return containers
+  }
+
   async composeUp(composePath: string, projectName: string) {
     const compose = new DockerodeCompose(this.docker, composePath, projectName)
 
@@ -85,7 +117,21 @@ export class DockerManager {
   async composeDown(composePath: string, projectName: string) {
     const compose = new DockerodeCompose(this.docker, composePath, projectName)
 
-    await compose.down()
+    try {
+      await compose.down()
+    } catch (error) {}
+
+    const projectContainers = await this.composeGetContainers(projectName)
+
+    for (const projectContainer of projectContainers) {
+      const container = this.docker.getContainer(projectContainer.Id)
+
+      if (projectContainer.State === 'running') {
+        await container.stop()
+      }
+
+      await container.remove()
+    }
 
     return compose
   }

@@ -1,0 +1,10 @@
+version: '3.2'
+
+services:
+  web:
+    container_name: example_webcont
+    image: nginx:latest
+    ports:
+      - '80:80'
+    environment:
+      ENVIRONMENT: production
