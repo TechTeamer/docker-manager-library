@@ -1,0 +1,26 @@
+name: Run tests
+run-name: ${{ github.actor }} is running tests
+
+on:
+  pull_request:
+    branches:
+      - master
+
+jobs:
+  test:
+    runs-on:
+      labels: [self-hosted, build, test, ci]
+    container:
+      image: node:lts
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install pnpm
+        run: npm install -g pnpm
+
+      - name: Install dependencies
+        run: pnpm install
+
+      - name: Run tests
+        run: pnpm test
