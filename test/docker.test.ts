@@ -46,7 +46,7 @@ describe('DockerManager', () => {
   it('should create a container', async () => {
     container = await dockerManager.containerCreate({
       ...TEST_CONTAINER,
-      Start: true,
+      Start: false,
     })
 
     expect(container).toBeTruthy()
