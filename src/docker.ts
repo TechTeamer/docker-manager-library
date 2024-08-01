@@ -11,6 +11,11 @@ import Docker from 'dockerode'
 import type { ContainerCreateOptions, DockerOptions } from 'dockerode'
 import DockerodeCompose from 'dockerode-compose'
 
+type LabelFilter = {
+  key: string
+  value?: string
+}
+
 export class DockerManager {
   private docker: Docker
 
@@ -40,6 +45,21 @@ export class DockerManager {
     const data = await container.inspect()
 
     return data.State
+  }
+
+  async getContainersByLabels(labels: LabelFilter[]) {
+    const labelFilters = labels.map((label) =>
+      label.value ? `${label.key}=${label.value}` : label.key,
+    )
+
+    const containers = await this.docker.listContainers({
+      all: true,
+      filters: {
+        label: labelFilters,
+      },
+    })
+
+    return containers
   }
 
   async containerStart(query: string) {
@@ -95,12 +115,9 @@ export class DockerManager {
   }
 
   async composeGetContainers(projectName: string) {
-    const containers = await this.docker.listContainers({
-      all: true,
-      filters: {
-        label: [`com.docker.compose.project=${projectName}`],
-      },
-    })
+    const containers = await this.getContainersByLabels([
+      { key: 'com.docker.compose.project', value: projectName },
+    ])
 
     return containers
   }
