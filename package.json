@@ -17,7 +17,14 @@
     "test": "vitest run",
     "lint": "biome lint",
     "format": "biome format --write",
-    "check": "biome check  --write"
+    "check": "biome check  --write",
+    "prepare": "husky",
+    "commit": "cz"
+  },
+  "config": {
+    "commitizen": {
+      "path": "node_modules/cz-git"
+    }
   },
   "files": [
     "build"
@@ -27,10 +34,15 @@
   "license": "ISC",
   "devDependencies": {
     "@biomejs/biome": "1.8.3",
+    "@commitlint/cli": "^19.3.0",
+    "@commitlint/config-conventional": "^19.2.2",
     "@types/dockerode": "^3.3.31",
     "@types/dockerode-compose": "^1.4.1",
     "@types/js-yaml": "^4.0.9",
     "@types/node": "^22.0.0",
+    "commitizen": "^4.3.0",
+    "cz-git": "^1.9.4",
+    "husky": "^9.1.4",
     "tsup": "^8.2.3",
     "typescript": "^5.5.4",
     "vite": "^5.3.5",
