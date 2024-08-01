@@ -124,9 +124,9 @@ export class DockerManager {
     },
   ) {
     try {
-      const existsImage = await this.checkImageExists(options.Image)
+      const imageExists = await this.checkImageExists(options.Image)
 
-      if (!existsImage) {
+      if (!imageExists) {
         await this.pullImage(options.Image)
       }
 
