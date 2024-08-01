@@ -6,10 +6,10 @@
   "type": "module",
   "exports": {
     ".": {
-      "import": "./build/docker-manager-library.mjs",
+      "import": "./build/docker-manager-library.js",
       "require": "./build/docker-manager-lbirary.cjs",
       "types": "./build/docker-manager-library.d.ts",
-      "default": "./build/docker-manager-library.mjs"
+      "default": "./build/docker-manager-library.js"
     }
   },
   "scripts": {
