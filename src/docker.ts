@@ -31,17 +31,17 @@ export class DockerManager {
     return data.State
   }
 
-  async startContainer(query: string) {
+  async containerStart(query: string) {
     const container = this.getContainer(query)
     await container.start()
   }
 
-  async stopContainer(query: string) {
+  async containerStop(query: string) {
     const container = this.getContainer(query)
     await container.stop()
   }
 
-  async createContainer(options: ContainerCreateOptions) {
+  async containerCreate(options: ContainerCreateOptions) {
     const container = await this.docker.createContainer(options)
 
     await container.start()
@@ -49,7 +49,7 @@ export class DockerManager {
     return container
   }
 
-  async createCompose(
+  async composeCreate(
     composePath: string,
     outComposePath: string,
     placeholders?: ComposePlaceholders,
@@ -63,7 +63,7 @@ export class DockerManager {
     await writeCompose(outComposePath, composeFileContent)
   }
 
-  async updateCompose(
+  async composeUpdate(
     composePath: string,
     overrides: DeepPartial<DockerComposeConfig>,
   ) {
@@ -73,7 +73,7 @@ export class DockerManager {
     await writeCompose(composePath, composeFileContent)
   }
 
-  async upCompose(composePath: string, projectName: string) {
+  async composeUp(composePath: string, projectName: string) {
     const compose = new DockerodeCompose(this.docker, composePath, projectName)
 
     await compose.pull()
@@ -82,7 +82,7 @@ export class DockerManager {
     return compose
   }
 
-  async downCompose(composePath: string, projectName: string) {
+  async composeDown(composePath: string, projectName: string) {
     const compose = new DockerodeCompose(this.docker, composePath, projectName)
 
     await compose.down()
