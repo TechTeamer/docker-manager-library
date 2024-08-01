@@ -62,6 +62,44 @@ export class DockerManager {
     return containers
   }
 
+  private async checkImageExists(imageName: string): Promise<boolean> {
+    return new Promise((resolve, reject) => {
+      this.docker.listImages((err: Error | null, images) => {
+        if (err) {
+          return reject(err)
+        }
+
+        if (!images) return resolve(false)
+
+        const found = images.some((image) =>
+          image.RepoTags?.includes(imageName),
+        )
+
+        resolve(found)
+      })
+    })
+  }
+
+  private async pullImage(imageName: string) {
+    return new Promise((resolve, reject) => {
+      this.docker.pull(
+        imageName,
+        (err: Error | null, stream: NodeJS.ReadableStream) => {
+          if (err) {
+            return reject(err)
+          }
+
+          this.docker.modem.followProgress(stream, (err: Error | null, _) => {
+            if (err) {
+              return reject(err)
+            }
+            resolve(true)
+          })
+        },
+      )
+    })
+  }
+
   async containerStart(query: string) {
     const container = this.getContainer(query)
 
@@ -78,11 +116,25 @@ export class DockerManager {
     return container
   }
 
-  async containerCreate(options: ContainerCreateOptions & { Name: string }) {
+  async containerCreate(
+    options: ContainerCreateOptions & {
+      Image: string
+      Name: string
+      Start: boolean
+    },
+  ) {
     try {
+      const existsImage = await this.checkImageExists(options.Image)
+
+      if (!existsImage) {
+        await this.pullImage(options.Image)
+      }
+
       const container = await this.docker.createContainer(options)
 
-      await container.start()
+      if (options.Start) {
+        await container.start()
+      }
 
       return container
     } catch (error) {

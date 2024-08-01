@@ -5,10 +5,11 @@ import path from 'node:path'
 import { describe, it, expect, beforeAll, afterAll } from 'vitest'
 import fs from 'node:fs/promises'
 import type { DockerComposeConfig } from '@/compose'
+import type { Container } from 'dockerode'
 
 const TEST_CONTAINER = {
-  Image: 'nginx-latest',
-  Name: 'nginx-test',
+  Image: 'nginx:latest',
+  Name: 'nginx-latest',
 }
 
 const RESOURCES = path.join(__dirname, 'resources')
@@ -27,6 +28,7 @@ const OUT_COMPOSE_PATH_PLACEHOLDER = path.join(
 
 describe('DockerManager', () => {
   let dockerManager: DockerManager
+  let container: Container
 
   beforeAll(() => {
     dockerManager = new DockerManager()
@@ -42,14 +44,17 @@ describe('DockerManager', () => {
   })
 
   it('should create a container', async () => {
-    const container = await dockerManager.containerCreate(TEST_CONTAINER)
+    container = await dockerManager.containerCreate({
+      ...TEST_CONTAINER,
+      Start: true,
+    })
 
     expect(container).toBeTruthy()
   })
 
   it('should start a container', async () => {
-    await dockerManager.containerStart(TEST_CONTAINER.Name)
-    const status = await dockerManager.getContainerStatus(TEST_CONTAINER.Name)
+    await dockerManager.containerStart(container.id)
+    const status = await dockerManager.getContainerStatus(container.id)
 
     expect(status.Running).toBeTruthy()
   })
@@ -58,7 +63,7 @@ describe('DockerManager', () => {
     const containers = await dockerManager.getContainers()
 
     const containsNginxContainer = containers.find(
-      (container) => container.Names[0] === `/${TEST_CONTAINER.Name}`,
+      (container) => container.Image === `${TEST_CONTAINER.Image}`,
     )
 
     expect(containsNginxContainer).toBeDefined()
@@ -76,9 +81,9 @@ describe('DockerManager', () => {
   })
 
   it('should stop a container', async () => {
-    await dockerManager.containerStop(TEST_CONTAINER.Name)
+    await dockerManager.containerStop(container.id)
 
-    const status = await dockerManager.getContainerStatus(TEST_CONTAINER.Name)
+    const status = await dockerManager.getContainerStatus(container.id)
 
     expect(status.Status).toBe('exited')
   })
