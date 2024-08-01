@@ -23,8 +23,8 @@ export class DockerManager {
     this.docker = new Docker(dockerOptions)
   }
 
-  getContainer(query: string) {
-    const container = this.docker.getContainer(query)
+  getContainer(id: string) {
+    const container = this.docker.getContainer(id)
 
     return container
   }
@@ -40,8 +40,8 @@ export class DockerManager {
     return containers
   }
 
-  async getContainerStatus(query: string) {
-    const container = this.getContainer(query)
+  async getContainerStatus(id: string) {
+    const container = this.getContainer(id)
     const data = await container.inspect()
 
     return data.State
@@ -100,16 +100,16 @@ export class DockerManager {
     })
   }
 
-  async containerStart(query: string) {
-    const container = this.getContainer(query)
+  async containerStart(id: string) {
+    const container = this.getContainer(id)
 
     await container.start()
 
     return container
   }
 
-  async containerStop(query: string) {
-    const container = this.getContainer(query)
+  async containerStop(id: string) {
+    const container = this.getContainer(id)
 
     await container.stop()
 
@@ -120,7 +120,7 @@ export class DockerManager {
     options: ContainerCreateOptions & {
       Image: string
       Name: string
-      Start: boolean
+      Start?: boolean
     },
   ) {
     try {
