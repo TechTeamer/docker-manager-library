@@ -1,11 +1,11 @@
 import yaml from 'js-yaml'
 
-import { DockerManager } from '@/docker'
-import path from 'node:path'
-import { describe, it, expect, beforeAll, afterAll } from 'vitest'
 import fs from 'node:fs/promises'
+import path from 'node:path'
 import type { DockerComposeConfig } from '@/compose'
+import { DockerManager } from '@/docker'
 import type { Container } from 'dockerode'
+import { afterAll, beforeAll, describe, expect, it } from 'vitest'
 
 const TEST_CONTAINER = {
   Image: 'nginx:latest',
