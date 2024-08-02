@@ -76,8 +76,6 @@ describe('DockerManager', () => {
 
     const containerInfo = await container.inspect()
 
-    console.log(containerInfo.Config.Labels)
-
     expect(containerInfo.Config.Labels['com.docker.compose.service']).toBe(
       'test',
     )
