@@ -1,5 +1,8 @@
 name: Run tests
-run-name: ${{ github.actor }} is running tests
+run-name: >-
+  ${{ github.event.action == 'opened' 
+    && format('{0} opened PR #{1}', github.event.pull_request.user.login, github.event.pull_request.number)
+    || format('{0} updated PR #{1}', github.event.pull_request.user.login, github.event.pull_request.number) }}
 
 on:
   pull_request:
@@ -9,7 +12,7 @@ on:
 jobs:
   test:
     runs-on:
-      labels: [self-hosted, build, test, ci]
+      labels: [self-hosted, test]
     container:
       image: node:lts
 
