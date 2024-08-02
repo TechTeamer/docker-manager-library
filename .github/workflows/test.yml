@@ -1,0 +1,29 @@
+name: Run tests
+run-name: >-
+  ${{ github.event.action == 'opened' 
+    && format('{0} opened PR #{1}', github.event.pull_request.user.login, github.event.pull_request.number)
+    || format('{0} updated PR #{1}', github.event.pull_request.user.login, github.event.pull_request.number) }}
+
+on:
+  pull_request:
+    branches:
+      - master
+
+jobs:
+  test:
+    runs-on:
+      labels: [self-hosted, test]
+    container:
+      image: node:lts
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install pnpm
+        run: npm install -g pnpm
+
+      - name: Install dependencies
+        run: pnpm install
+
+      - name: Run tests
+        run: pnpm test
