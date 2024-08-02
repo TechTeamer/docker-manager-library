@@ -11,9 +11,8 @@ import Docker from 'dockerode'
 import type { ContainerCreateOptions, DockerOptions } from 'dockerode'
 import DockerodeCompose from 'dockerode-compose'
 
-type LabelFilter = {
-  key: string
-  value?: string
+type Labels = {
+  [label: string]: string | null
 }
 
 export class DockerManager {
@@ -47,19 +46,65 @@ export class DockerManager {
     return data.State
   }
 
-  async getContainersByLabels(labels: LabelFilter[]) {
-    const labelFilters = labels.map((label) =>
-      label.value ? `${label.key}=${label.value}` : label.key,
+  async getContainersByLabels(labels: Labels) {
+    const label = Object.keys(labels).map((key) =>
+      labels[key] ? `${key}=${labels[key]}` : key,
     )
 
     const containers = await this.docker.listContainers({
       all: true,
       filters: {
-        label: labelFilters,
+        label,
       },
     })
 
     return containers
+  }
+
+  async getContainerLabels(id: string) {
+    const container = this.getContainer(id)
+    const containerInfo = await container.inspect()
+
+    return containerInfo.Config.Labels
+  }
+
+  async containerUpdateLabels(id: string, labels: Labels) {
+    const container = this.getContainer(id)
+    const containerInfo = await container.inspect()
+
+    if (containerInfo.State.Running) {
+      await container.stop()
+    }
+
+    await container.remove()
+
+    const updatedLabels = { ...containerInfo.Config.Labels }
+
+    for (const [key, value] of Object.entries(labels)) {
+      if (value === null) {
+        delete updatedLabels[key]
+      } else {
+        updatedLabels[key] = value
+      }
+    }
+
+    const newConfig = {
+      ...containerInfo.Config,
+      Labels: {
+        ...containerInfo.Config.Labels,
+        ...updatedLabels,
+      },
+    }
+
+    const recreatedContainer = await this.docker.createContainer({
+      ...newConfig,
+      name: containerInfo.Name,
+      HostConfig: containerInfo.HostConfig,
+    })
+
+    await recreatedContainer.start()
+
+    return recreatedContainer
   }
 
   private async checkImageExists(imageName: string): Promise<boolean> {
@@ -167,9 +212,9 @@ export class DockerManager {
   }
 
   async composeGetContainers(projectName: string) {
-    const containers = await this.getContainersByLabels([
-      { key: 'com.docker.compose.project', value: projectName },
-    ])
+    const containers = await this.getContainersByLabels({
+      'com.docker.compose.project': projectName,
+    })
 
     return containers
   }

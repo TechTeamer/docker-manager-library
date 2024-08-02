@@ -69,6 +69,20 @@ describe('DockerManager', () => {
     expect(containsNginxContainer).toBeDefined()
   })
 
+  it('should update a container label', async () => {
+    container = await dockerManager.containerUpdateLabels(container.id, {
+      'com.docker.compose.service': 'test',
+    })
+
+    const containerInfo = await container.inspect()
+
+    console.log(containerInfo.Config.Labels)
+
+    expect(containerInfo.Config.Labels['com.docker.compose.service']).toBe(
+      'test',
+    )
+  })
+
   it('should stop a container', async () => {
     await dockerManager.containerStop(container.id)
 
@@ -156,12 +170,9 @@ describe('DockerManager', () => {
   })
 
   it('should find a container by label', async () => {
-    const containers = await dockerManager.getContainersByLabels([
-      {
-        key: 'com.docker.compose.service',
-        value: 'web',
-      },
-    ])
+    const containers = await dockerManager.getContainersByLabels({
+      'com.docker.compose.service': 'web',
+    })
 
     expect(containers).toHaveLength(1)
   })
