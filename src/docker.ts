@@ -90,10 +90,7 @@ export class DockerManager {
 
     const newConfig = {
       ...containerInfo.Config,
-      Labels: {
-        ...containerInfo.Config.Labels,
-        ...updatedLabels,
-      },
+      Labels: updatedLabels,
     }
 
     const recreatedContainer = await this.docker.createContainer({
