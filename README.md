@@ -11,6 +11,9 @@ This library is for managing `docker` and `docker compose` services and containe
 
 ## Usage
 
+> [!WARNING]
+> When updating the labels of a container, the container will be recreated, wiping the internal volume
+
 ### Docker
 ```ts
 import { DockerManager } from '@techteamer/docker-manager-library';
