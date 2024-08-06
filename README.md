@@ -11,6 +11,9 @@ This library is for managing `docker` and `docker compose` services and containe
 
 ## Usage
 
+> [!WARNING]
+> When updating the labels of a container, the container will be recreated, wiping the internal volume
+
 ### Docker
 ```ts
 import { DockerManager } from '@techteamer/docker-manager-library';
@@ -32,15 +35,19 @@ const newContainer = await dockerManager.containerCreate({
   Image: 'mongo:latest',
   Name: 'my-mongodb',
   ExposedPorts: {
-    '27017/tcp': {}
+    '27017/tcp': {},
   },
   HostConfig: {
     PortBindings: {
-      '27017/tcp': [{ HostPort: '27017' }]
-    }
+      '27017/tcp': [{ HostPort: '27017' }],
+    },
   },
-  Start: true
-});
+  Start: true,
+  Labels: {
+    example: 'label',
+  },
+})
+
 console.log('New container created:', newContainer.id);
 
 // List all running containers
@@ -50,6 +57,17 @@ console.log('Running containers:', runningContainers);
 // Get status of a specific container
 const status = await dockerManager.getContainerStatus('container-id');
 console.log('Container status:', status);
+
+// Get container by a label
+const containers = await dockerManager.getContainersByLabels({
+  'com.docker.compose.service': 'web',
+})
+console.log('Containers:', containers);
+
+// Update container labels
+container = await dockerManager.containerUpdateLabels('container-id', {
+  'com.docker.compose.service': 'test',
+})
 
 // Stop a container
 await dockerManager.containerStop('container-id');
