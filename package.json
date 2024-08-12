@@ -2,12 +2,14 @@
   "name": "@techteamer/docker-manager-library",
   "version": "1.0.0",
   "description": "A FaceKom Docker Manager Library",
-  "main": "index.js",
+  "main": "./build/docker-manager-library.js",
   "type": "module",
+  "module": "./build/docker-manager-library.js",
+  "types": "./build/docker-manager-library.d.ts",
   "exports": {
     ".": {
       "import": "./build/docker-manager-library.js",
-      "require": "./build/docker-manager-lbirary.cjs",
+      "require": "./build/docker-manager-library.cjs",
       "types": "./build/docker-manager-library.d.ts",
       "default": "./build/docker-manager-library.js"
     }
