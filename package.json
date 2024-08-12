@@ -36,6 +36,7 @@
     "@biomejs/biome": "1.8.3",
     "@commitlint/cli": "^19.3.0",
     "@commitlint/config-conventional": "^19.2.2",
+    "@semantic-release/changelog": "^6.0.3",
     "@types/dockerode": "^3.3.31",
     "@types/dockerode-compose": "^1.4.1",
     "@types/js-yaml": "^4.0.9",
@@ -43,6 +44,7 @@
     "commitizen": "^4.3.0",
     "cz-git": "^1.9.4",
     "husky": "^9.1.4",
+    "semantic-release": "^24.0.0",
     "tsup": "^8.2.3",
     "typescript": "^5.5.4",
     "vite": "^5.3.5",
@@ -52,5 +54,8 @@
     "dockerode": "^4.0.2",
     "dockerode-compose": "^1.4.0",
     "js-yaml": "^4.1.0"
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }
