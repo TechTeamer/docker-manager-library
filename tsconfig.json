@@ -12,7 +12,8 @@
     "paths": {
       "@/*": ["src/*"]
     },
-    "outDir": "./build"
+    "outDir": "./build",
+    "types": ["dockerode"]
   },
   "exclude": ["node_modules/**/*"]
 }

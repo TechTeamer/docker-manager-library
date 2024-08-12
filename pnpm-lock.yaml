@@ -8,6 +8,12 @@ importers:
 
   .:
     dependencies:
+      '@types/dockerode':
+        specifier: ^3.3.31
+        version: 3.3.31
+      '@types/dockerode-compose':
+        specifier: ^1.4.1
+        version: 1.4.1
       dockerode:
         specifier: ^4.0.2
         version: 4.0.2
@@ -27,12 +33,6 @@ importers:
       '@commitlint/config-conventional':
         specifier: ^19.2.2
         version: 19.2.2
-      '@types/dockerode':
-        specifier: ^3.3.31
-        version: 3.3.31
-      '@types/dockerode-compose':
-        specifier: ^1.4.1
-        version: 1.4.1
       '@types/js-yaml':
         specifier: ^4.0.9
         version: 4.0.9
