@@ -2,14 +2,15 @@ import {
   type ComposePlaceholders,
   type DockerComposeConfig,
   extendCompose,
-  readCompose,
   replaceCompose,
   writeCompose,
+  readFile,
 } from '@/compose'
 import type { DeepPartial } from '@/utils'
 import Docker from 'dockerode'
 import type { ContainerCreateOptions, DockerOptions } from 'dockerode'
-import DockerodeCompose from 'dockerode-compose'
+import { v2 as compose } from 'docker-compose'
+import path from 'node:path'
 
 type Labels = {
   [label: string]: string | null
@@ -184,25 +185,25 @@ export class DockerManager {
     }
   }
 
-  async composeCreate(
-    composePath: string,
-    outComposePath: string,
+  async copyTemplate(
+    templatePath: string,
+    outTemplatePath: string,
     placeholders?: ComposePlaceholders,
   ) {
-    let composeFileContent = await readCompose(composePath)
+    let composeFileContent = await readFile(templatePath)
 
     if (placeholders) {
       composeFileContent = replaceCompose(composeFileContent, placeholders)
     }
 
-    await writeCompose(outComposePath, composeFileContent)
+    await writeCompose(outTemplatePath, composeFileContent)
   }
 
   async composeUpdate(
     composePath: string,
     overrides: DeepPartial<DockerComposeConfig>,
   ) {
-    let composeFileContent = await readCompose(composePath)
+    let composeFileContent = await readFile(composePath)
     composeFileContent = extendCompose(composeFileContent, overrides)
 
     await writeCompose(composePath, composeFileContent)
@@ -217,33 +218,18 @@ export class DockerManager {
   }
 
   async composeUp(composePath: string, projectName: string) {
-    const compose = new DockerodeCompose(this.docker, composePath, projectName)
-
-    await compose.pull()
-    await compose.up()
-
-    return compose
+    await compose.upAll({
+      cwd: path.dirname(composePath),
+      log: true,
+      composeOptions: [`-f${path.basename(composePath)}`, `-p${projectName}`],
+    })
   }
 
   async composeDown(composePath: string, projectName: string) {
-    const compose = new DockerodeCompose(this.docker, composePath, projectName)
-
-    try {
-      await compose.down()
-    } catch (error) {}
-
-    const projectContainers = await this.composeGetContainers(projectName)
-
-    for (const projectContainer of projectContainers) {
-      const container = this.docker.getContainer(projectContainer.Id)
-
-      if (projectContainer.State === 'running') {
-        await container.stop()
-      }
-
-      await container.remove()
-    }
-
-    return compose
+    await compose.downAll({
+      cwd: path.dirname(composePath),
+      log: true,
+      composeOptions: [`-f${path.basename(composePath)}`, `-p${projectName}`],
+    })
   }
 }

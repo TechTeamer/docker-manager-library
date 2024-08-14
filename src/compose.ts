@@ -28,7 +28,7 @@ export type DockerComposeConfig = {
   networks?: Record<string, null | { driver: string }>
 }
 
-export const readCompose = async (filePath: string) => {
+export const readFile = async (filePath: string) => {
   const content = await fs.readFile(filePath, 'utf8')
 
   return content

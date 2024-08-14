@@ -89,8 +89,8 @@ describe('DockerManager', () => {
     expect(status.Status).toBe('exited')
   })
 
-  it('should create a docker-compose', async () => {
-    await dockerManager.composeCreate(COMPOSE_PATH, OUT_COMPOSE_PATH)
+  it('should create a docker-compose from template', async () => {
+    await dockerManager.copyTemplate(COMPOSE_PATH, OUT_COMPOSE_PATH)
 
     try {
       const stats = await fs.stat(OUT_COMPOSE_PATH)
@@ -103,7 +103,7 @@ describe('DockerManager', () => {
   })
 
   it('should create a docker-compose with placeholders', async () => {
-    await dockerManager.composeCreate(
+    await dockerManager.copyTemplate(
       COMPOSE_PATH_PLACEHOLDER,
       OUT_COMPOSE_PATH_PLACEHOLDER,
       {
