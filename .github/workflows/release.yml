@@ -26,6 +26,9 @@ jobs:
       - name: Build library
         run: pnpm build
 
+      - name: Show files
+        run: ls -la
+
       - name: Release
         env:
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
