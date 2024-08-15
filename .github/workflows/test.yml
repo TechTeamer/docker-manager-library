@@ -1,4 +1,4 @@
-name: Run tests
+name: Run docker-manager-library tests
 run-name: >-
   ${{ github.event.action == 'opened' 
     && format('{0} opened PR #{1}', github.event.pull_request.user.login, github.event.pull_request.number)
@@ -15,10 +15,17 @@ jobs:
     runs-on:
       labels: [self-hosted, test]
     container:
-      image: node:lts
-
+        image: cruizba/ubuntu-dind:noble-latest
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install Node.js
+        run: |
+          apt-get update
+          apt-get install -y curl
+          curl -fsSL https://deb.nodesource.com/setup_20.x | bash -
+          apt-get install -y nodejs
 
       - name: Install pnpm
         run: npm install -g pnpm
