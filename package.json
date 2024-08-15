@@ -64,10 +64,9 @@
     "vitest": "^2.0.4"
   },
   "dependencies": {
-    "dockerode": "^4.0.2",
-    "dockerode-compose": "^1.4.0",
     "@types/dockerode": "^3.3.31",
-    "@types/dockerode-compose": "^1.4.1",
+    "docker-compose": "^0.24.8",
+    "dockerode": "^4.0.2",
     "js-yaml": "^4.1.0"
   },
   "publishConfig": {

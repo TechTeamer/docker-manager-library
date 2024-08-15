@@ -1,5 +1,9 @@
 version: '3.2'
 
+networks:
+  nginx-test:
+
+
 services:
   web:
     container_name: example_webcont
