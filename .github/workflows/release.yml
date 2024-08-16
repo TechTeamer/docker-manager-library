@@ -29,11 +29,6 @@ jobs:
       - name: Build library
         run: pnpm build
 
-      - name: Print debug values
-        run: |
-          echo $PWD
-          ls -la
-
       - name: Add working directory to git as safe directory
         run: |
           git config --global --add safe.directory "${PWD}"
