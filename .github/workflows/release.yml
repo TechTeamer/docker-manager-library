@@ -10,12 +10,17 @@ jobs:
     runs-on:
         labels: [self-hosted, ci]
     container:
-        image: node:lts
+        image: node:20-bullseye
     steps:
       - name: Checkout
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: lts/*
 
       - name: Install pnpm
         run: npm install -g pnpm
@@ -26,10 +31,8 @@ jobs:
       - name: Build library
         run: pnpm build
 
-      - name: Show files
-        run: ls -la
-
       - name: Release
         env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
-        run: pnpx semantic-release
+        run: pnpm dlx semantic-release
