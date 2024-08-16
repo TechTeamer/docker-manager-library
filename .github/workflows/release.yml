@@ -1,8 +1,8 @@
 name: Release docker-manager-library to npm
 on:
   push:
-    tags:
-      - "release-v*"
+    branches:
+      - "master"
 
 permissions:
   contents: write
