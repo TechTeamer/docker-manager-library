@@ -34,6 +34,10 @@ jobs:
           echo $PWD
           ls -la
 
+      - name: Add working directory to git as safe directory
+        run: |
+          git config --global --add safe.directory "${PWD}"
+
       - name: Release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
