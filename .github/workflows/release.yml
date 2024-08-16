@@ -2,20 +2,23 @@ name: Release docker-manager-library to npm
 on:
   push:
     tags:
-      - 'release-v*'
+      - "release-v*"
+
+permissions:
+  contents: write
+  packages: write
+  actions: read
 
 jobs:
   release:
     name: Release
     runs-on:
-        labels: [self-hosted, ci]
+      labels: [self-hosted, ci]
     container:
-        image: node:20-bullseye
+      image: node:20-bullseye
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
 
       - name: Install pnpm
         run: npm install -g pnpm
@@ -25,6 +28,10 @@ jobs:
 
       - name: Build library
         run: pnpm build
+
+      - name: Add working directory to git as safe directory
+        run: |
+          git config --global --add safe.directory "${PWD}"
 
       - name: Release
         env:
