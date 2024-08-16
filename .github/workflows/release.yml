@@ -19,8 +19,6 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
 
       - name: Install pnpm
         run: npm install -g pnpm
@@ -30,6 +28,11 @@ jobs:
 
       - name: Build library
         run: pnpm build
+
+      - name: Print debug values
+        run: |
+          echo $PWD
+          ls -la
 
       - name: Release
         env:
