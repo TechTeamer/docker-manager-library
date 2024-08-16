@@ -1,4 +1,4 @@
-name: Release
+name: Release docker-manager-library to npm
 on:
   push:
     tags:
@@ -10,7 +10,7 @@ jobs:
     runs-on:
         labels: [self-hosted, ci]
     container:
-        image: node:lts
+        image: node:20-bullseye
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -26,10 +26,8 @@ jobs:
       - name: Build library
         run: pnpm build
 
-      - name: Show files
-        run: ls -la
-
       - name: Release
         env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
-        run: pnpx semantic-release
+        run: pnpm dlx semantic-release
