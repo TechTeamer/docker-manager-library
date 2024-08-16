@@ -2,15 +2,18 @@ name: Release docker-manager-library to npm
 on:
   push:
     tags:
-      - 'release-v*'
+      - "release-v*"
+
+permissions:
+  packages: write
 
 jobs:
   release:
     name: Release
     runs-on:
-        labels: [self-hosted, ci]
+      labels: [self-hosted, ci]
     container:
-        image: node:20-bullseye
+      image: node:20-bullseye
     steps:
       - name: Checkout
         uses: actions/checkout@v4
