@@ -5,6 +5,7 @@ on:
       - "release-v*"
 
 permissions:
+  contents: write
   packages: write
 
 jobs:
