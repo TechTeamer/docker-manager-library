@@ -1,3 +1,10 @@
+## [1.0.1](https://github.com/TechTeamer/docker-manager-library/compare/release-v1.0.0...release-v1.0.1) (2024-08-21)
+
+
+### Bug Fixes
+
+* **package:** change description to bump patch version ([fb367dd](https://github.com/TechTeamer/docker-manager-library/commit/fb367dd8f55d324b37ca0da8a583077a2ca66b50))
+
 # 1.0.0 (2024-08-21)
 
 
