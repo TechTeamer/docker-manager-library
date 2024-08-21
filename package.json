@@ -1,7 +1,7 @@
 {
   "name": "@techteamer/docker-manager-library",
   "version": "1.0.0",
-  "description": "A FaceKom Docker Manager Library",
+  "description": "A library by FaceKom to manage Docker.",
   "main": "./build/docker-manager-library.js",
   "type": "module",
   "module": "./build/docker-manager-library.js",
