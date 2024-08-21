@@ -1,1 +1,5 @@
-pnpx commitlint --edit
+#!/bin/sh
+
+if [ "$GITHUB_ACTIONS" != "true" ]; then
+  pnpx commitlint --edit
+fi

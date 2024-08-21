@@ -1,5 +1,5 @@
 #!/bin/sh
 
-if [ "$GITHUB_ACTIONS" = "false" ] && sh -c ": >/dev/tty" >/dev/null 2>/dev/null; then
+if [ "$GITHUB_ACTIONS" != "true" ] && sh -c ": >/dev/tty" >/dev/null 2>/dev/null; then
   exec < /dev/tty && pnpx cz --hook || true
 fi
