@@ -15,6 +15,7 @@ type ServiceConfig = {
         dockerfile: string
       }
   ports?: string[]
+  labels?: string[]
   environment?: Record<string, string>
   logging?: Record<string, string>
   volumes?: string[]
