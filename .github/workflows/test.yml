@@ -12,10 +12,7 @@ on:
 jobs:
   test:
     if: github.event.pull_request.head.repo.fork == false
-    runs-on:
-      labels: [self-hosted, test]
-    container:
-        image: cruizba/ubuntu-dind:noble-latest
+    runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v4
