@@ -1,0 +1,106 @@
+Arguments: 
+  /home/nyaraig/.nvm/versions/node/v20.15.0/bin/node /snap/node/7581/bin/yarn.js install
+
+PATH: 
+  /home/nyaraig/bin:/home/nyaraig/.nvm/versions/node/v20.15.0/bin:/home/nyaraig/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/snap/bin
+
+Yarn version: 
+  1.22.19
+
+Node version: 
+  20.15.0
+
+Platform: 
+  linux x64
+
+Trace: 
+  Error: ENOENT: no such file or directory, copyfile '/home/nyaraig/.cache/yarn/v6/npm-is-stream-4.0.1-375cf891e16d2e4baec250b85926cffc14720d9b-integrity/node_modules/is-stream/index.d.ts' -> '/workspace/docker-manager-library/node_modules/semantic-release/node_modules/is-stream/index.d.ts'
+
+npm manifest: 
+  {
+    "name": "@techteamer/docker-manager-library",
+    "version": "1.0.1",
+    "description": "A library by FaceKom to manage Docker.",
+    "main": "./build/docker-manager-library.js",
+    "type": "module",
+    "module": "./build/docker-manager-library.js",
+    "types": "./build/docker-manager-library.d.ts",
+    "exports": {
+      ".": {
+        "import": "./build/docker-manager-library.js",
+        "require": "./build/docker-manager-library.cjs",
+        "types": "./build/docker-manager-library.d.ts",
+        "default": "./build/docker-manager-library.js"
+      }
+    },
+    "scripts": {
+      "build": "tsup",
+      "test": "vitest run",
+      "lint": "biome lint",
+      "format": "biome format --write",
+      "check": "biome check  --write",
+      "prepare": "husky",
+      "commit": "cz"
+    },
+    "engines": {
+      "node": ">=20"
+    },
+    "config": {
+      "commitizen": {
+        "path": "node_modules/cz-git"
+      }
+    },
+    "files": [
+      "build"
+    ],
+    "keywords": [
+      "docker",
+      "docker-library"
+    ],
+    "repository": {
+      "type": "git",
+      "url": "git+https://github.com/TechTeamer/docker-manager-library.git"
+    },
+    "bugs": {
+      "url": "https://github.com/TechTeamer/docker-manager-library/issues"
+    },
+    "homepage": "https://github.com/TechTeamer/docker-manager-library",
+    "author": "TechTeamer",
+    "license": "MIT",
+    "devDependencies": {
+      "@biomejs/biome": "1.8.3",
+      "@commitlint/cli": "^19.3.0",
+      "@commitlint/config-conventional": "^19.2.2",
+      "@semantic-release/changelog": "^6.0.3",
+      "@semantic-release/commit-analyzer": "^13.0.0",
+      "@semantic-release/git": "^10.0.1",
+      "@semantic-release/github": "^10.1.6",
+      "@semantic-release/npm": "^12.0.1",
+      "@semantic-release/release-notes-generator": "^14.0.1",
+      "@types/js-yaml": "^4.0.9",
+      "@types/node": "^22.0.0",
+      "commitizen": "^4.3.0",
+      "cz-git": "^1.9.4",
+      "husky": "^9.1.4",
+      "semantic-release": "^24.0.0",
+      "tsup": "^8.2.3",
+      "typescript": "^5.5.4",
+      "vite": "^5.3.5",
+      "vitest": "^2.0.4"
+    },
+    "dependencies": {
+      "@types/dockerode": "^3.3.31",
+      "docker-compose": "^0.24.8",
+      "dockerode": "^4.0.2",
+      "js-yaml": "^4.1.0"
+    },
+    "publishConfig": {
+      "access": "public"
+    }
+  }
+
+yarn manifest: 
+  No manifest
+
+Lockfile: 
+  No lockfile
