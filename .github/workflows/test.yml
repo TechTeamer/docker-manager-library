@@ -12,20 +12,15 @@ on:
 jobs:
   test:
     if: github.event.pull_request.head.repo.fork == false
-    runs-on:
-      labels: [self-hosted, test]
-    container:
-        image: cruizba/ubuntu-dind:noble-latest
+    runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v4
 
       - name: Install Node.js
-        run: |
-          apt-get update
-          apt-get install -y curl
-          curl -fsSL https://deb.nodesource.com/setup_20.x | bash -
-          apt-get install -y nodejs
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20.x"
 
       - name: Install pnpm
         run: npm install -g pnpm

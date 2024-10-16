@@ -1,3 +1,11 @@
+## [1.0.2](https://github.com/TechTeamer/docker-manager-library/compare/release-v1.0.1...release-v1.0.2) (2024-10-07)
+
+
+### Bug Fixes
+
+* fixed config type & deepmerge for arrays ([0ab2032](https://github.com/TechTeamer/docker-manager-library/commit/0ab2032e0e679825137c3e14f66774feeb4c54e6))
+* **workflow:** change runs-on attribute of test workflow ([2683b58](https://github.com/TechTeamer/docker-manager-library/commit/2683b58e0a721b55dd39b405c343678a1566d4a0))
+
 ## [1.0.1](https://github.com/TechTeamer/docker-manager-library/compare/release-v1.0.0...release-v1.0.1) (2024-08-21)
 
 
