@@ -1,3 +1,10 @@
+## [1.0.3](https://github.com/TechTeamer/docker-manager-library/compare/release-v1.0.2...release-v1.0.3) (2024-10-16)
+
+
+### Bug Fixes
+
+* **workflow:** setup node with an already existing step ([00303cf](https://github.com/TechTeamer/docker-manager-library/commit/00303cf5b69fe960cd8dfb33aab1baa0857bdac1))
+
 ## [1.0.2](https://github.com/TechTeamer/docker-manager-library/compare/release-v1.0.1...release-v1.0.2) (2024-10-07)
 
 
