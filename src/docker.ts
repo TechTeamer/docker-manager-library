@@ -105,6 +105,33 @@ export class DockerManager {
     return recreatedContainer
   }
 
+  async containerRunCommand(id: string, command: Docker.ExecCreateOptions) {
+    const container = this.getContainer(id)
+    const exec = await container.exec({
+      ...command,
+      AttachStdout: true,
+      AttachStderr: true,
+    })
+
+    return new Promise((resolve, reject) => {
+      exec.start({}, (err, stream) => {
+        if (err) return reject(err)
+        if (!stream) return resolve(null)
+
+        let output = ''
+        stream.on('data', (chunk: Buffer) => {
+          output += chunk.toString()
+        })
+        stream.on('end', () => {
+          resolve(output.trim())
+        })
+        stream.on('error', (err: Error) => {
+          reject(err)
+        })
+      })
+    })
+  }
+
   private async checkImageExists(imageName: string): Promise<boolean> {
     return new Promise((resolve, reject) => {
       this.docker.listImages((err: Error | null, images) => {

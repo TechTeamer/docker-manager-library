@@ -1,3 +1,25 @@
+# [1.1.0](https://github.com/TechTeamer/docker-manager-library/compare/release-v1.0.3...release-v1.1.0) (2024-10-16)
+
+
+### Features
+
+* added container command run ([5c054ac](https://github.com/TechTeamer/docker-manager-library/commit/5c054ac28a15dea386c38770f4eeec2a4db9adc6))
+
+## [1.0.3](https://github.com/TechTeamer/docker-manager-library/compare/release-v1.0.2...release-v1.0.3) (2024-10-16)
+
+
+### Bug Fixes
+
+* **workflow:** setup node with an already existing step ([00303cf](https://github.com/TechTeamer/docker-manager-library/commit/00303cf5b69fe960cd8dfb33aab1baa0857bdac1))
+
+## [1.0.2](https://github.com/TechTeamer/docker-manager-library/compare/release-v1.0.1...release-v1.0.2) (2024-10-07)
+
+
+### Bug Fixes
+
+* fixed config type & deepmerge for arrays ([0ab2032](https://github.com/TechTeamer/docker-manager-library/commit/0ab2032e0e679825137c3e14f66774feeb4c54e6))
+* **workflow:** change runs-on attribute of test workflow ([2683b58](https://github.com/TechTeamer/docker-manager-library/commit/2683b58e0a721b55dd39b405c343678a1566d4a0))
+
 ## [1.0.1](https://github.com/TechTeamer/docker-manager-library/compare/release-v1.0.0...release-v1.0.1) (2024-08-21)
 
 
