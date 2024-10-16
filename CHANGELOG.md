@@ -1,3 +1,10 @@
+# [1.1.0](https://github.com/TechTeamer/docker-manager-library/compare/release-v1.0.3...release-v1.1.0) (2024-10-16)
+
+
+### Features
+
+* added container command run ([5c054ac](https://github.com/TechTeamer/docker-manager-library/commit/5c054ac28a15dea386c38770f4eeec2a4db9adc6))
+
 ## [1.0.3](https://github.com/TechTeamer/docker-manager-library/compare/release-v1.0.2...release-v1.0.3) (2024-10-16)
 
 
